@@ -15,8 +15,8 @@ public class MinHeap <T extends Comparable<T>> {
     public MinHeap(int tamaño) {
         this.max = tamaño;
         this.cant = 0;
-        this.heap = new [this.max + 1];
-        heap[0] = 0;
+        heap = (T[])(new Comparable [this.max + 1]);
+        heap[0] = null;
     }
 
     private int getPapa(int pos) {
@@ -39,24 +39,24 @@ public class MinHeap <T extends Comparable<T>> {
     }
 
     private void swap(int a, int b) {
-        int aux;
-        aux = heap[a];
+        T aux= heap[a];
+        
         heap[a] = heap[b];
         heap[b] = aux;
     }
 
    
 
-    public void insert(int element) {
+    public void insert(T element) {
         if (cant >= max) {
-            int[] aux  = new int[cant*2];
+            T[] aux  = (T[])(new Comparable [cant*2]);
             System.arraycopy(heap, 0, aux, 0, cant);
             heap=aux;
         }
         heap[++cant] = element;
         int act = cant;
 
-        while (heap[act] < heap[getPapa(act)]) {
+        while (getPapa(act)!=0 && heap[act].compareTo(heap[getPapa(act)])<0 ) {
             swap(act, getPapa(act));
             act = getPapa(act);
         }
@@ -70,10 +70,8 @@ public class MinHeap <T extends Comparable<T>> {
             System.out.println();
         }
     }
-
-    
-    public int eliminaMin() {
-        int aux = heap[FRENTE];
+    public T eliminaMin() {
+        T aux = heap[FRENTE];
         heap[FRENTE] = heap[cant--];
         eliminaAux(FRENTE);
         return aux;
@@ -81,8 +79,8 @@ public class MinHeap <T extends Comparable<T>> {
 
     private void eliminaAux(int pos) {
         if (!isLeaf(pos)) {
-            if (heap[pos] > heap[getIzq(pos)] || heap[pos] > heap[getDer(pos)]) {
-                if (heap[getIzq(pos)] < heap[getDer(pos)]) {
+            if (heap[pos].compareTo(heap[getIzq(pos)])>0 || heap[pos].compareTo(heap[getDer(pos)])>0) {
+                if (heap[getIzq(pos)].compareTo(heap[getDer(pos)])<0) {
                     swap(pos, getIzq(pos));
                     eliminaAux(getIzq(pos));
                 } 
@@ -93,25 +91,14 @@ public class MinHeap <T extends Comparable<T>> {
             }
         }
     }
-
-
     
-     public static void main(String[] arg) 
-    { 
-        MinHeap minHeap = new MinHeap(15); 
-        minHeap.insert(5); 
-        minHeap.insert(3); 
-        minHeap.insert(17); 
-        minHeap.insert(10); 
-        minHeap.insert(84); 
-        minHeap.insert(19); 
-        minHeap.insert(6); 
-        minHeap.insert(22); 
-        minHeap.insert(9); 
-
-  
-        minHeap.imprime(); 
-        
-    } 
+    public  <T extends Comparable<T>> T[] heapSort(){
+        T[] res  = (T[])(new Comparable [cant]);
+        int i=0;
+        while(cant!=0){
+            res[i]=(T) this.eliminaMin();
+        }
+        return res;
+    }
 
 }
