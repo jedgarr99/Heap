@@ -1,13 +1,12 @@
-
 package minheap;
 
 /**
  *
  * @author Jorge Edgar Rodriguez Ortiz Loyola
  */
-public class MinHeap <T extends Comparable<T>> {
-    
-    private T[] heap;
+public class MinHeap<T extends Comparable<T>> {
+
+    public T[] heap;
     private int cant;
     private int max;
     private static final int FRENTE = 1;
@@ -15,7 +14,7 @@ public class MinHeap <T extends Comparable<T>> {
     public MinHeap(int tamaño) {
         this.max = tamaño;
         this.cant = 0;
-        heap = (T[])(new Comparable [this.max + 1]);
+        heap = (T[]) (new Comparable[this.max + 1]);
         heap[0] = null;
     }
 
@@ -26,12 +25,12 @@ public class MinHeap <T extends Comparable<T>> {
     private int getIzq(int pos) {
         return (2 * pos);
     }
-    
+
     private int getDer(int pos) {
         return (2 * pos) + 1;
     }
 
-    private boolean isLeaf(int pos) {
+    private boolean esHoja(int pos) {
         if (pos >= (cant / 2) && pos <= cant) {
             return true;
         }
@@ -39,24 +38,22 @@ public class MinHeap <T extends Comparable<T>> {
     }
 
     private void swap(int a, int b) {
-        T aux= heap[a];
-        
+        T aux = heap[a];
+
         heap[a] = heap[b];
         heap[b] = aux;
     }
 
-   
-
-    public void insert(T element) {
+    public void inserta(T element) {
         if (cant >= max) {
-            T[] aux  = (T[])(new Comparable [cant*2]);
+            T[] aux = (T[]) (new Comparable[cant * 2]);
             System.arraycopy(heap, 0, aux, 0, cant);
-            heap=aux;
+            heap = aux;
         }
         heap[++cant] = element;
         int act = cant;
 
-        while (getPapa(act)!=0 && heap[act].compareTo(heap[getPapa(act)])<0 ) {
+        while (getPapa(act) != 0 && heap[act].compareTo(heap[getPapa(act)]) < 0) {
             swap(act, getPapa(act));
             act = getPapa(act);
         }
@@ -70,6 +67,7 @@ public class MinHeap <T extends Comparable<T>> {
             System.out.println();
         }
     }
+
     public T eliminaMin() {
         T aux = heap[FRENTE];
         heap[FRENTE] = heap[cant--];
@@ -78,25 +76,30 @@ public class MinHeap <T extends Comparable<T>> {
     }
 
     private void eliminaAux(int pos) {
-        if (!isLeaf(pos)) {
-            if (heap[pos].compareTo(heap[getIzq(pos)])>0 || heap[pos].compareTo(heap[getDer(pos)])>0) {
-                if (heap[getIzq(pos)].compareTo(heap[getDer(pos)])<0) {
+        if (heap[pos] != null && !esHoja(pos)) {
+            if ((heap[getIzq(pos)] != null && heap[pos].compareTo(heap[getIzq(pos)]) > 0) || (heap[getDer(pos)] != null && heap[pos].compareTo(heap[getDer(pos)]) > 0)) {
+                if (heap[getDer(pos)] != null && heap[getIzq(pos)].compareTo(heap[getDer(pos)]) < 0) {
                     swap(pos, getIzq(pos));
                     eliminaAux(getIzq(pos));
-                } 
-                else {
+                } else {
                     swap(pos, getDer(pos));
                     eliminaAux(getDer(pos));
                 }
             }
         }
     }
-    
-    public  <T extends Comparable<T>> T[] heapSort(){
-        T[] res  = (T[])(new Comparable [cant]);
-        int i=0;
-        while(cant!=0){
-            res[i]=(T) this.eliminaMin();
+
+    public <T extends Comparable<T>> T[] heapSort() {
+        T[] res = (T[]) (new Comparable[cant]);
+        int i = 0;
+        while (cant != 0) {
+            Object elem = this.eliminaMin();
+            if (elem != null) {
+                res[i] = (T) elem;
+
+                i++;
+            }
+
         }
         return res;
     }

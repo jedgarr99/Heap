@@ -7,6 +7,7 @@ package minheap;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -43,7 +44,7 @@ public class Pruebas {
         
          t = new Trie(arr);*/
         try {
-            File ent = new File("C:\\Users\\hca\\Desktop\\Heap\\palabras.txt");
+            File ent = new File("C:\\Users\\Edgar\\Desktop\\Heap\\palabras.txt");
             sc = new Scanner(new FileReader(ent));
 
         } catch (FileNotFoundException e) {
@@ -73,7 +74,7 @@ public class Pruebas {
         }
 
         //System.out.println(Arrays.toString(lista));
-        TInicio = System.currentTimeMillis();
+       /* TInicio = System.currentTimeMillis();
         for (int j = 0; j < 60000; j++) {
             t.insertar(lista[j]);
         }
@@ -165,28 +166,36 @@ public class Pruebas {
         }
         
         
+        */
         
-        
-       /* minHeap = new MinHeap(15); 
+        /*MinHeap<String> minHeap= new MinHeap(15); 
         minHeap.insert("5"); 
         minHeap.insert("3"); 
         minHeap.insert("9"); 
         minHeap.insert("1"); 
         minHeap.insert("7"); 
         minHeap.insert("8"); 
-        minHeap.insert("4"); */
+        minHeap.insert("4"); 
+        Object[] res2 =  minHeap.heapSort();
+        System.out.println(Arrays.toString(res2));*/
         
-        
-        int tam =100;
-         MinHeap<String> minHeap = new MinHeap(tam+1);
+        int tam =10000;
+        MinHeap<String> minHeap = new MinHeap(tam);
         TInicio = System.currentTimeMillis();
-        for (int j = 0; j < tam; j++) {
-            t.insertar(lista[j]);
+        for (int j = 0; j < tam+1; j++) {
+            minHeap.inserta(lista[j]);
         }
-        res = (String[]) minHeap.heapSort();
+        //System.out.println(Arrays.toString(minHeap.heap));
+        //minHeap.imprime();
+       
+        //Arrays.sort(lista);
+        //System.out.println(Arrays.toString(lista));
+        Object[] res3 =  minHeap.heapSort();
+        
         TFin = System.currentTimeMillis();
         tiempo = TFin - TInicio;
-        System.out.println("aAAAA"+tiempo);
+        System.out.println("Tiempo: "+tiempo);
+        System.out.println(Arrays.toString(res3));
         
         
 
