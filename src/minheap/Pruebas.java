@@ -44,7 +44,7 @@ public class Pruebas {
         
          t = new Trie(arr);*/
         try {
-            File ent = new File("C:\\Users\\Edgar\\Desktop\\Heap\\palabras.txt");
+            File ent = new File("/Users/jrodriguort/Desktop/Heap/palabras.txt");
             sc = new Scanner(new FileReader(ent));
 
         } catch (FileNotFoundException e) {
@@ -180,6 +180,8 @@ public class Pruebas {
         System.out.println(Arrays.toString(res2));*/
         
         int tam =10000;
+        double prom=0; 
+        for(int k=0; k<100; k++){
         MinHeap<String> minHeap = new MinHeap(tam);
         TInicio = System.currentTimeMillis();
         for (int j = 0; j < tam+1; j++) {
@@ -190,14 +192,35 @@ public class Pruebas {
        
         //Arrays.sort(lista);
         //System.out.println(Arrays.toString(lista));
-        Object[] res3 =  minHeap.heapSort();
+        
+             Object[] res3 =  minHeap.heapSort();
         
         TFin = System.currentTimeMillis();
         tiempo = TFin - TInicio;
-        System.out.println("Tiempo: "+tiempo);
-        System.out.println(Arrays.toString(res3));
+        prom+=tiempo;
         
+        //System.out.println(Arrays.toString(res3));
+        }
+        //System.out.println(prom/100.0);
         
+        tam =80000;
+        prom=0;
+        for (int k = 0; k < 100; k++) {
+        t = new Trie(arr);
+        TInicio = System.currentTimeMillis();
+        for (int j = 0; j < tam; j++) {
+            t.insertar(lista[j]);
+        }
+        //System.out.println("j "+100);
+
+        String[] res = t.ordenamientoLexicografico();
+        TFin = System.currentTimeMillis();
+        //System.out.println(Arrays.toString(res));
+        tiempo = TFin - TInicio;
+         prom+=tiempo;
+       
+        }
+        System.out.println(prom/100.0);
 
         
     } 
