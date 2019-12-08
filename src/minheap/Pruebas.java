@@ -1,7 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package minheap;
 
 import java.io.File;
@@ -12,7 +9,7 @@ import java.util.Scanner;
 
 /**
  *
- * @author hca
+ * @author Jorge Edgar Rodrigue Ortiz Loyola 181334
  */
 public class Pruebas {
      public static void main(String[] arg) 
@@ -44,7 +41,7 @@ public class Pruebas {
         
          t = new Trie(arr);*/
         try {
-            File ent = new File("/Users/jrodriguort/Desktop/Heap/palabras.txt");
+            File ent = new File("/Users/elisaortizloyola/Desktop/Heap/palabras.txt");
             sc = new Scanner(new FileReader(ent));
 
         } catch (FileNotFoundException e) {
@@ -179,7 +176,7 @@ public class Pruebas {
         Object[] res2 =  minHeap.heapSort();
         System.out.println(Arrays.toString(res2));*/
         
-        int tam =10000;
+        int tam =89000;
         double prom=0; 
         for(int k=0; k<100; k++){
         MinHeap<String> minHeap = new MinHeap(tam);
@@ -201,9 +198,10 @@ public class Pruebas {
         
         //System.out.println(Arrays.toString(res3));
         }
-        //System.out.println(prom/100.0);
+        System.out.println(prom/100.0);
         
-        tam =80000;
+        //Prueba Trie 
+  
         prom=0;
         for (int k = 0; k < 100; k++) {
         t = new Trie(arr);
@@ -211,16 +209,36 @@ public class Pruebas {
         for (int j = 0; j < tam; j++) {
             t.insertar(lista[j]);
         }
-        //System.out.println("j "+100);
-
         String[] res = t.ordenamientoLexicografico();
+        TFin = System.currentTimeMillis();
+        tiempo = TFin - TInicio;
+         prom+=tiempo;
+        }
+        System.out.println(prom/100.0);
+        
+        
+        //Prueba Merge Sort
+
+         prom=0; 
+         aux = new String[tam];
+        for (int j = 0; j < tam; j++) {
+            aux[j] = lista[j];
+        }
+        for(int k=0; k<100;k++){
+            
+
+        TInicio = System.currentTimeMillis();
+
+        String[] res = (String[]) s.mergeSort(aux);
         TFin = System.currentTimeMillis();
         //System.out.println(Arrays.toString(res));
         tiempo = TFin - TInicio;
-         prom+=tiempo;
-       
+        prom+=tiempo;
+
+        
         }
-        System.out.println(prom/100.0);
+        System.out.println(prom/100);
+       
 
         
     } 

@@ -2,7 +2,7 @@ package minheap;
 
 /**
  *
- * @author Jorge Edgar Rodriguez Ortiz Loyola
+ * @author Jorge Edgar Rodriguez Ortiz Loyola 181334
  */
 public class MinHeap<T extends Comparable<T>> {
 
